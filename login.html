@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>次元界后台管理系统</title>
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/font-awesome.min.css">
+</head>
+<body>
+<nav class="navbar navbar-default" style="background-color:#4e4f9580">
+    <div class="container-fluid">
+        <div class="navbar-brand text-white"><i class="fa fa-cog fa-spin" style="color:black"></i>&nbsp;&nbsp;次元界后台管理系统</div>
+    </div>
+</nav>
+    <div class="container col-md-3">
+        <div class="text-center" style="padding: 40px 0 30px;">
+            <i class="fa fa-diamond fa-5x" style="color:rgba(19, 203, 233, 0.83);"></i>
+        </div>
+        <div id='myalert' style="height:50px">
+        </div>
+        <div class="form-group">
+            <label for="username">账号:</label>
+            <input type="username" class="form-control" id="username">
+            </div>
+            <div class="form-group">
+            <label for="password">密码:</label>
+            <input type="password" class="form-control" id="password">
+            </div>
+            <div class="form-check">
+            <!-- <label class="form-check-label">
+                <input class="form-check-input" type="checkbox"> Remember me
+            </label> -->
+        </div>
+            <button id="login" class="btn btn-primary" style="width:100%;margin-top:20px;">登录</button>
+    </div>
+<script src="js/jquery-3.1.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script>
+    $('#login').click(function(){
+        $.ajax({
+            url: ' http://www.suzumiya.club/public/login',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                username: $('#username').val(),
+                password: $('#password').val()
+            },                                                                                                                                                                  
+            success: function(response) {
+                if(response.result){
+                    sessionStorage.setItem("nickname", response.data.nickname)
+                    sessionStorage.setItem("token", response.data.token)
+                    window.location.href = 'index.html'
+                }else{
+                    $('#myalert').html(`<div class="alert alert-danger">
+                                            <a href="#" class="close" data-dismiss="alert">
+                                                &times;
+                                            </a>
+                                            <strong>警告！</strong>` + response.message + `。
+                                        </div>`)
+                }
+            }
+        })
+    })
+
+</script>    
+</body>
+</html>

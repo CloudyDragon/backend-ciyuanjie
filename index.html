@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>次元界后台管理系统</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <style>
+    .fa-hover:hover {
+        cursor: pointer;
+    }
+    .import {
+        border: 1px solid red;
+        box-shadow: rgba(222, 10, 10, 0.5) 1px 1px 7px
+    }
+    </style>
+</head>
+<body>    
+<nav class="navbar navbar-default" style="background-color:#4e4f9580">
+    <div class="container-fluid">
+        <div class="navbar-brand text-white"><i class="fa fa-cog fa-spin" style="color:black"></i>&nbsp;&nbsp;次元界后台管理系统</div>
+        <div class="dropdown" style="border:1px dashed #f0fbfa">  
+            <a type="button" class="btn dropdown-toggle" data-toggle="dropdown">
+                <img src="img/凉宫春日_crop_image.jpg" width="30px" height="30px">
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+                <a class="dropdown-item" href="login.html">退出</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row" style="padding:30px">
+        <div class="col-md-2" style="border-right: 1px solid rgb(221, 201, 240);">
+            <div class="nav">
+                <a class="list-group-item active" data-toggle="tab" href="#photo"><i class="fa fa-picture-o"></i>&nbsp;&nbsp;图片管理</a>
+                <a class="list-group-item" data-toggle="tab" href="#music"><i class="fa fa-music"></i>&nbsp;&nbsp;&nbsp;音乐管理</a>
+                <a class="list-group-item" data-toggle="tab" href="#vido"><i class="fa fa-film"></i>&nbsp;&nbsp;视频管理</a>
+            </div>
+        </div>
+        <div class="col-md-10 tab-content">
+            <!--图片管理-->
+            <div id="photo" class="tab-pane active">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#img_list">列表</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#add_role">添加角色</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#add_img">添加图片</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <!--图片列表信息-->
+                    <div id="img_list" class="container tab-pane active"><br>
+                        <!--搜索框 <div class="row" style="margin-bottom: 20px">
+                            <div class="col-lg-4">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="请输入角色名或番名">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button">
+                                            搜索
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div> -->
+                        <table class="table table-bordered table-hover">
+                                <thead>
+                                  <tr class="table-secondary">
+                                    <th class="text-center">序号</th>
+                                    <th class="text-center">角色</th>
+                                    <th class="text-center">番名</th>
+                                    <!-- <th class="text-center">img数量</th> -->
+                                    <th class="text-center">描述</th>
+                                    <th class="text-center">操作</th>
+                                  </tr>
+                                </thead>
+                                <tbody id="img-item">
+                                    <!-- <tr>
+                                        <td class="text-center">1</td>
+                                        <td>优酷里伍德</td>
+                                        <td>这样是僵尸吗？</td>
+                                        <td class="text-center">12</td>
+                                        <td>动漫作品《这样算是僵尸吗？》中的女主角之一，银色长发闪烁动人，身穿防护手套和板甲，有着蓝色瞳孔，仿佛像是人偶般的少女。于5月26日在便利商店的停车场里认识了相川步，并觉得步是一个特殊的存在。在步被杀后，把步变成了僵尸，同时也最喜欢步。</td>
+                                        <td style="white-space:nowrap;vertical-align: middle">
+                                            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#img-list-role-edit">编辑</button>
+                                            <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#role-delete">删除</button>
+                                        </td>
+                                    </tr> -->
+                                </tbody>
+                              </table>
+                         <!--分页--> 
+                        <div id="page">    
+                        <!--    <ul class="pagination">
+                                <li class="page-item disabled"><a class="page-link" href="#">上一页</a></li>
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                <li class="page-item"><a class="page-link" href="#">6</a></li>
+                                <li class="page-item"><a class="page-link" href="#">下一页</a></li>
+                            </ul> -->
+                        </div>
+                        <!--分页      end--> 
+                    </div>
+                    <!--图片列表信息/ 查看  角色弹窗-->
+                        <!-- 模态框 -->
+                        <div class="modal fade" id="img-list-role-see">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                <!-- 模态框头部 -->
+                                <div class="modal-header">
+                                <h5 id='img-name-title' class="modal-title"></h5>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <!-- 模态框主体 -->
+                                <div id="img-container" class="modal-body">
+                                    <div><img src="http://i3.265g.com/images/201609/201609191018004401.jpg" width="100px"/></div>
+                                    <div><img src="http://album.u17i.com/image/2012/07/45/06/719862_45796_1919198_8Jqt.jpg" width="100px"/></div>
+                                    <div><img src="http://i1.hdslb.com/bfs/archive/fab42fbf14e28335a18bbab63b163b28b554ef53.jpg" width="100px"></div>
+                                </div>
+                        
+                                <!-- 模态框底部 -->
+                                <div class="modal-footer text-right">
+                                <button type="button" class="btn btn-primary">编辑</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">放弃</button>
+                                </div>
+                            
+                                </div>
+                            </div>
+                        </div>
+                    <!--图片列表信息/ 查看  角色弹窗        end -->
+                    <!--图片列表信息/  修改  角色弹窗-->
+                      <!-- 模态框 -->
+                      <div class="modal fade" id="img-list-role-edit">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+
+                                <!-- 模态框头部 -->
+                                <div class="modal-header">
+                                <h5 class="modal-title">提示</h5>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                        
+                                <!-- 模态框主体 -->
+                                <div class="modal-body">
+                                    <div id='myalert-edit'></div>
+                                    <div class="form-group">
+                                        <label>角色:</label>
+                                        <input id="edit-role-name" class="form-control" placeholder="请输入角色名">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>番名:</label>
+                                        <input id="edit-anime-name" class="form-control" placeholder="请输入番名">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>角色描述:</label>
+                                        <textarea id="edit-role-introduction" class="form-control" rows="3" placeholder="请输入角色描述"></textarea>
+                                    </div>
+                                </div>
+                        
+                                <!-- 模态框底部 -->
+                                <div class="modal-footer text-right">
+                                <button type="button" id="edit-ajax" class="btn btn-primary">确定</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">放弃</button>
+                                </div>
+                            
+                                </div>
+                            </div>
+                        </div>
+                    <!--图片列表信息/  修改  角色弹窗     end-->
+                     <!--图片列表信息/ 删除  角色弹窗-->
+                      <div class="modal fade" id="role-delete">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+
+                                    <!-- 模态框头部 -->
+                                    <div class="modal-header">
+                                    <h5 class="modal-title">提示</h5>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                            
+                                    <!-- 模态框主体 -->
+                                    <div class="modal-body">
+                                    是否删除该记录？
+                                    </div>
+                            
+                                    <!-- 模态框底部 -->
+                                    <div class="modal-footer">
+                                    <button type="button" id="delete-ajax" class="btn btn-primary" data-dismiss="modal">确定</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">放弃</button>
+                                    </div>
+                            
+                                </div>
+                            </div>
+                        </div>
+                    <!--图片列表信息/  删除  角色弹窗     end-->
+                    <!--图片列表信息      end-->
+
+
+                    <!--添加角色-->
+                    <div id="add_role" class="container tab-pane"><br>
+                        <div id='myalert-add'></div>
+                        <div class="form-group">
+                            <label>角色:</label>
+                            <input id="add-role-name" class="form-control" placeholder="请输入角色名">
+                        </div>
+                        <div class="form-group">
+                            <label>番名:</label>
+                            <input id="add-anime-name" class="form-control" placeholder="请输入番名">
+                        </div>
+                        <div class="form-group">
+                            <label>角色描述:</label>
+                            <textarea id="add-role-introduction" class="form-control" rows="3" placeholder="请输入角色描述"></textarea>
+                        </div>
+                        <button id="add-ajax" type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                    <!--添加角色    end-->
+                    <!---添加图片-->
+                    <div id="add_img" class="container tab-pane fade"><br>
+                        <label>选择图片:</label>
+                        <div class="form-group">
+                            <input id="add-img-file" name="file" type="file" multiple>
+                        </div>
+                        <div class="form-group">
+                            <label>角色名:</label>
+                            <input id="add-img-name" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>番名:</label>
+                            <input id="add-img-anime" class="form-control">
+                        </div>
+                        <button id="upload-img-ajax" class="btn btn-primary">Submit</button>
+                    </div>
+                    <!---添加图片   end-->
+                </div>
+            </div>
+            <!--图片管理    end-->
+            <!--音乐管理-->
+            <div id="music" class="tab-pane fade">
+                <h2>This is music!</h2>
+            </div>
+            <!--音乐管理    end-->
+            <!--视频管理-->
+            <div id="vido" class="tab-pane fade">
+                <h2>wozaizheli!</h2>
+            </div>
+            <!--视频管理    end-->
+        </div>
+    </div>
+</div>
+<script src="js/jquery-3.1.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/public.js"></script>
+<script src="js/plugin-paging.js"></script>
+<script>
+$(document).ready(function(){
+    var width = document.body.clientWidth
+    console.log(sessionStorage.getItem("nickname"))
+    var thisListIndex = 1   //用于角色列表的页码
+    var pageSize = 3    //用于角色列表
+    /*获取图片管理模块的列表*/
+function listAjax(index) {
+    $.ajax({
+            url: 'http://www.suzumiya.club/backend/img/list',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                page_size: pageSize,
+                page_index: index
+            },                                                                                                                                                                  
+            success: function(response) {
+                console.log(thisListIndex, pageSize)
+                if(response.result) {
+                    var data = ''
+                    for(let i = 0; i < response.data.length; i++) {
+                        data += `<tr>
+                                    <td class="text-center">`+ ((index - 1) * pageSize + i + 1) + `</td>
+                                    <td>` + response.data[i].role_name +`</td>
+                                    <td>` + response.data[i].anime_name + `</td>
+                                    <td>` + response.data[i].role_introduction + `</td>
+                                    <td style="white-space:nowrap;vertical-align: middle;font-size: 28px">
+                                        <i class="img-show fa fa-hover fa-eye text-primary" data-toggle="modal" data-target="#img-list-role-see" 
+                                        data-role_name="` + response.data[i].role_name +`"
+                                        data-anime_name="` + response.data[i].anime_name +`"></i>
+                                        <i class="img-edit fa fa-hover fa-edit" style="color: #29b156" data-toggle="modal" data-target="#img-list-role-edit" 
+                                        data-id="`+ response.data[i].id + `" 
+                                        data-role_name="` + response.data[i].role_name +`"
+                                        data-anime_name="` + response.data[i].anime_name +`"
+                                        data-role_introduction="` + response.data[i].role_introduction +`"></i>
+                                        <i class="img-delete fa fa-hover fa-trash text-danger" data-id="`+ response.data[i].id + `" data-toggle="modal" data-target="#role-delete"></i>
+                                    </td>
+                                </tr>`
+                    }
+                    $("#img-item").html(data)
+                } else {
+                    alert(response.message)
+                }
+                $('#page').myPaging({total: response.page.total, pageSize: pageSize, aFewPages: index, callback: listAjax})
+                thisListIndex = index
+            }
+        })
+}
+listAjax(thisListIndex)
+/*列表编辑*/
+$('#img-item').on('click', '.img-edit', function () {
+    $('#edit-ajax').attr('data-id', $(this).attr('data-id'))
+    $('#edit-role-name').val($(this).attr('data-role_name'))
+    $('#edit-anime-name').val($(this).attr('data-anime_name'))
+    $('#edit-role-introduction').val($(this).attr('data-role_introduction'))
+})
+$('#edit-ajax').click(function() {
+   var edit_role_name = $('#edit-role-name').val()
+   var edit_anime_name = $('#edit-anime-name').val()
+   var edit_role_introduction = $('#edit-role-introduction').val()
+   var id = $(this).attr('data-id')
+   function edit() {
+        $.ajax({
+            url: 'http://www.suzumiya.club/backend/img/list',
+            type: 'put',
+            dataType: 'json',
+            data: {
+                id: id,
+                role_name: edit_role_name,
+                anime_name: edit_anime_name,
+                role_introduction: edit_role_introduction
+            },                                                                                                                                                                  
+            success: function(response) {
+                if(response.result) {
+                    $('#img-list-role-edit').modal('hide')
+                    listAjax(thisListIndex)
+                } else {
+                    $('#myalert-edit').html(`<div class="alert alert-danger">
+                                            <a href="#" class="close" data-dismiss="alert">
+                                                &times;
+                                            </a>
+                                            <strong>警告！</strong>` + response.message + `。
+                                        </div>`)
+                    listAjax(thisListIndex)
+                }
+            }
+        })
+    } 
+    if(edit_role_name && edit_anime_name && edit_role_introduction) {
+        edit()
+    } else {
+        if(!edit_role_name)
+            $('#edit-role-name').addClass('import')
+        if (!edit_anime_name) 
+            $('#edit-anime-name').addClass('import')
+        if (!edit_role_introduction)
+            $('#edit-role-introduction').addClass('import')
+    }
+    
+})
+$('#edit-role-name').change(function() {
+    if($(this).val()) {
+        $(this).removeClass('import')
+    }
+})
+$('#edit-anime-name').change(function() {
+    if($(this).val()) {
+        $(this).removeClass('import')
+    }
+})
+$('#edit-role-introduction').change(function() {
+    if($(this).val()) {
+        $(this).removeClass('import')
+    }
+})
+$('#img-list-role-edit').on('hide.bs.modal', function () {
+    $('#edit-role-name').removeClass('import')
+    $('#edit-anime-name').removeClass('import')
+    $('#edit-role-introduction').removeClass('import')
+})
+/*列表编辑      -----end*/
+
+/*列表添加*/
+$('#add-ajax').click(function() {
+    var add_role_name = $('#add-role-name').val()
+    var add_anime_name = $('#add-anime-name').val()
+    var add_role_introduction = $('#add-role-introduction').val()
+
+    function append() {
+        $.ajax({
+            url: 'http://www.suzumiya.club/backend/img/list/add',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                role_name: add_role_name,
+                anime_name: add_anime_name,
+                role_introduction: add_role_introduction
+            },                                                                                                                                                                  
+            success: function(response) {
+                if(response.result) {
+                    $('#add-role-name').val('')
+                    $('#add-anime-name').val('')
+                    $('#add-role-introduction').val('')
+                    listAjax(1)
+                    $('#photo ul li:first-child a').tab('show')
+                } else {
+                    $('#myalert-add').html(`<div class="alert alert-danger">
+                                            <a href="#" class="close" data-dismiss="alert">
+                                                &times;
+                                            </a>
+                                            <strong>警告！</strong>` + response.message + `。
+                                        </div>`)
+                }
+            }
+        })
+    }
+    if(add_role_name && add_anime_name && add_role_introduction) {
+        append()
+    } else {
+        if(!add_role_name)
+            $('#add-role-name').addClass('import')
+        if (!add_anime_name) 
+            $('#add-anime-name').addClass('import')
+        if (!add_role_introduction)
+            $('#add-role-introduction').addClass('import')
+    }
+})
+$('#add-role-name').change(function() {
+    if($(this).val()) {
+        $(this).removeClass('import')
+    }
+})
+$('#add-anime-name').change(function() {
+    if($(this).val()) {
+        $(this).removeClass('import')
+    }
+})
+$('#add-role-introduction').change(function() {
+    if($(this).val()) {
+        $(this).removeClass('import')
+    }
+})
+/*列表添加      ------end*/
+/*列表删除*/
+$('#img-item').on('click','.img-delete', function() {
+    $('#delete-ajax').attr('data-id', $(this).attr('data-id'))
+})
+$('#delete-ajax').click(function() {
+    $.ajax({
+            url: 'http://www.suzumiya.club/backend/img/list',
+            type: 'delete',
+            dataType: 'json',
+            data: {
+                id: $('#delete-ajax').attr('data-id')
+            },                                                                                                                                                                  
+            success: function(response) {
+                if(response.result) {
+                    $('#role-delete').modal('hide')
+                    listAjax(1)
+                } else {
+                    alert(response.message)
+                    listAjax(1)
+                }
+            }
+        })
+})
+/*列表删除     -------end*/
+/*添加图片*/
+$('#upload-img-ajax').click(function(){
+    var add_img_name = $('#add-img-name').val()
+    var add_img_anime = $('#add-img-anime').val()
+    var add_img_file = $('#add-img-file')[0].files[0]
+   
+    var regExp = /.(gif|jpg|jpeg|png|GIF|JPG|bmp)$/.test($('#add-img-file')[0].files[0].name)
+    var formData = new FormData()
+    function upload() {
+        $.ajax({
+            url: 'http://www.suzumiya.club/backend/img/upload',
+            type: 'post',
+            data: formData,
+            processData: false,
+            dataType: 'json',
+            contentType: false,                                                                                                                                                                  
+            success: function(response) {
+                if(response.result) {
+                    $('#add-img-file').val('')
+                    alert('上传成功！')
+                } else {
+
+                }
+            }
+        })
+    }
+    if ((add_img_name || add_img_anime) && add_img_file && regExp) {
+        formData.append('role_name', add_img_name)
+        formData.append('anime_name', add_img_anime)
+        formData.append('img_file', add_img_file)
+        upload() 
+    } else {
+        if(!add_img_name && !add_img_anime){
+            $('#add-img-name').addClass('import')
+            $('#add-img-anime').addClass('import')
+        }
+        if (!add_img_file)
+            $('#add-img-file').addClass('import')
+    }
+})
+$('#add-img-name').change(function() {
+    if($(this).val()) {
+        $(this).removeClass('import')
+        $('#add-img-anime').removeClass('import')
+    }
+})
+$('#add-img-anime').change(function() {
+    if($(this).val()) {
+        $(this).removeClass('import')
+        $('#add-img-name').removeClass('import')
+    }
+})
+$('#add-img-file').change(function() {
+    if($(this).val()) {
+        $(this).removeClass('import')
+    }
+})
+/*添加图片  --------end*/
+/*列表图片查看*/
+$('#img-item').on('click', '.img-show', function () {
+    var img_role_name = $(this).attr('data-role_name')
+    var img_anime_name = $(this).attr('data-anime_name')
+    $('#img-name-title').html(img_role_name)
+    $.ajax({
+        url: 'http://www.suzumiya.club/backend/img/imgsearch',
+        type: 'post',
+        dataType: 'json',
+        data: {
+            keywords: img_role_name,
+            blur: 0
+        },                                                                                                                                                                  
+        success: function(response) {
+            if(response.result) {
+                var data = ''
+                    for (var i = 0; i < response.data.length; i++) {
+                        data += `<img width="33%" class="img-click img-thumbnail" 
+                                    src="http://www.suzumiya.club:6363/` + response.data[i].img_src + `"
+                                    data-src="` + response.data[i].img_src + `"
+                                    data-role-name="` + img_role_name + `">`
+                    }
+                $('#img-container').html(data)
+            } else {
+                alert(response.message)
+            }
+        }  
+    })  
+})
+/*图片设置为封面*/
+/*
+***该功能未完成
+*/
+$('#img-container').on('click', '.img-click', function () {
+    var role_name = $(this).attr('data-role-name')
+    var img_src = $(this).attr('data-src')
+    $.ajax({
+        url: 'http://www.suzumiya.club/backend/img/cover',
+        type: 'post',
+        dataType: 'json',
+        data: {
+            role_name: role_name,
+            img_src: img_src
+        },
+        success: function(response) {
+            if(response.result) {
+                alert(`设置为${ role_name }封面成功`)
+            } else {
+                alert(response.message)
+            }
+        }  
+    })
+})
+/*图片设置为封面       end*/
+/*列表图片查看    -------end*/
+/*获取图片管理模块的列表  ---------end*/
+
+})
+</script>
+</body>
+</html>
