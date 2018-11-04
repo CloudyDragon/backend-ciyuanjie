@@ -19,4 +19,7 @@
 |图片|音乐|视频|
 |:---|:---|:---|
 |界面完成80% 差图片以懒加载浏览的功能|未开始|未开始|
-
+## 图片模块部分功能展示图
+![Image text](./readme-img/backend1.jpg) 
+![Image text](./readme-img/backend2.jpg) 
+![Image text](./readme-img/backend3.jpg) 
